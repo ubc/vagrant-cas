@@ -78,10 +78,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the file default.pp in the manifests_path directory.
   #
   config.vm.provision :shell do |shell|
-      shell.inline = "sudo puppet module install --force camptocamp-tomcat;
-                      sudo puppet module install --force puppetlabs-stdlib;
-                      sudo puppet module install --force puppetlabs-firewall;
-                      sudo puppet module install --force maestrodev-maven"
+      shell.inline = "sudo puppet module install camptocamp-tomcat;
+                      sudo puppet module install puppetlabs-stdlib;
+                      sudo puppet module install puppetlabs-firewall;
+                      sudo puppet module install maestrodev-maven"
   end
 
   config.vm.provision "puppet" do |puppet|
