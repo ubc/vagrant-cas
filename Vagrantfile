@@ -81,7 +81,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       shell.inline = "sudo puppet module install camptocamp-tomcat;
                       sudo puppet module install puppetlabs-stdlib;
                       sudo puppet module install puppetlabs-firewall;
-                      sudo puppet module install maestrodev-maven"
+                      sudo puppet module install maestrodev-maven;
+					  sudo puppet module install puppetlabs-java"
   end
 
   config.vm.provision "puppet" do |puppet|
