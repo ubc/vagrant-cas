@@ -13,10 +13,15 @@ Running
 Testing
 -------
 
-    open http://localhost:8088/cas
+    open http://192.168.33.10/cas/login
+
+Or if you need SSL enabled version:
+
+    open https://192.168.33.10/cas/login
 
 Using
 -----
-The CAS server is mapped to localhost:8088. So point the application to http://localhost:8088 for the CAS configuration.
+Point the application to https://192.168.33.10 for the CAS configuration.
 
-Default login: jleleu/jleleu
+Logins: you can use any username and password as long as they are the same. Cas will allow you to login. E.g. username: admin, password: admin
+
