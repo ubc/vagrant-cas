@@ -1,8 +1,13 @@
-include tomcat
+class { 'tomcat':
+  version     => 6,
+  sources     => true,
+  sources_src => 'http://archive.apache.org/dist/tomcat/',
+}
 
 tomcat::instance {'cas':
   ensure    => present,
   http_port => '8080',
+  require => Class['tomcat::source']
 }
 
 class { "maven::maven": }

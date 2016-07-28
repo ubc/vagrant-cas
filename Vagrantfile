@@ -80,7 +80,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the file default.pp in the manifests_path directory.
   #
   config.vm.provision :shell do |shell|
-      shell.inline = "sudo puppet module install camptocamp-tomcat;
+      shell.inline = "sudo yum install -y redhat-lsb-core java-1.7.0-openjdk;
+                      sudo puppet module install camptocamp-tomcat;
                       sudo puppet module install puppetlabs-stdlib;
                       sudo puppet module install puppetlabs-firewall;
                       sudo puppet module install jfryman-nginx;
