@@ -99,6 +99,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                       sudo cp -f /vagrant/files/cas.properties /srv/tomcat/cas/webapps/cas/WEB-INF/;
                       sudo cp -f /vagrant/files/deployerConfigContext.xml /srv/tomcat/cas/webapps/cas/WEB-INF/;
                       sudo cp -f /vagrant/files/person-attributes.conf /srv/tomcat/cas/webapps/cas/WEB-INF/;
+                      sudo cp -f /vagrant/files/casServiceValidationSuccess.jsp /srv/tomcat/cas/webapps/cas/WEB-INF/view/jsp/protocol/2.0/;
                       sudo /sbin/service tomcat-cas restart"
   end
 
