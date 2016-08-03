@@ -96,6 +96,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell do |shell|
       shell.inline = "cd /vagrant && mvn clean package;
                       sudo cp target/cas.war /srv/tomcat/cas/webapps/;
+                      sudo cp -f /vagrant/files/cas.properties /srv/tomcat/cas/webapps/cas/WEB-INF/;
+                      sudo cp -f /vagrant/files/deployerConfigContext.xml /srv/tomcat/cas/webapps/cas/WEB-INF/;
+                      sudo cp -f /vagrant/files/person-attributes.conf /srv/tomcat/cas/webapps/cas/WEB-INF/;
                       sudo /sbin/service tomcat-cas restart"
   end
 
