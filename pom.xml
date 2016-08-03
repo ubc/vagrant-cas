@@ -12,6 +12,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
                 <configuration>
                     <warName>cas</warName>
                 </configuration>
@@ -27,10 +28,23 @@
             <type>war</type>
             <scope>runtime</scope>
         </dependency>
+	    <dependency>
+            <groupId>org.jasig.cas</groupId>
+            <artifactId>cas-server-support-generic</artifactId>
+            <version>${cas.version}</version>
+            <type>jar</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.unicon.cas</groupId>
+            <artifactId>cas-addons</artifactId>
+            <version>${cas-addons.version}</version>
+        </dependency>
     </dependencies>
 
     <properties>
         <cas.version>3.5.2</cas.version>
+        <cas-addons.version>1.18</cas-addons.version>
     </properties>
 
     <repositories>
