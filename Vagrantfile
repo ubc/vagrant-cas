@@ -83,7 +83,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       shell.inline = "sudo yum install -y redhat-lsb-core java-1.7.0-openjdk;
                       sudo puppet module install camptocamp-tomcat;
                       sudo puppet module install puppetlabs-stdlib;
-                      sudo puppet module install puppetlabs-firewall;
+                      sudo puppet module install puppetlabs-firewall --version 1.10.0;
                       sudo puppet module install jfryman-nginx;
                       sudo puppet module install maestrodev-maven"
   end
