@@ -81,7 +81,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   config.vm.provision :shell do |shell|
       shell.inline = "sudo yum install -y redhat-lsb-core java-1.7.0-openjdk;
-                      sudo puppet module install camptocamp-tomcat;
+                      sudo puppet module install camptocamp-tomcat --version 0.17.1;
                       sudo puppet module install puppetlabs-stdlib;
                       sudo puppet module install puppetlabs-firewall --version 1.10.0;
                       sudo puppet module install jfryman-nginx;
@@ -96,9 +96,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell do |shell|
       shell.inline = "cd /vagrant && mvn clean package;
                       sudo cp target/cas.war /srv/tomcat/cas/webapps/;
+                      while [ ! -d /srv/tomcat/cas/webapps/cas/WEB-INF/ ]; do sleep 1; done
                       sudo cp -f /vagrant/files/cas.properties /srv/tomcat/cas/webapps/cas/WEB-INF/;
                       sudo cp -f /vagrant/files/deployerConfigContext.xml /srv/tomcat/cas/webapps/cas/WEB-INF/;
                       sudo cp -f /vagrant/files/person-attributes.conf /srv/tomcat/cas/webapps/cas/WEB-INF/;
+                      while [ ! -d /srv/tomcat/cas/webapps/cas/WEB-INF/view/jsp/protocol/2.0/ ]; do sleep 1; done
                       sudo cp -f /vagrant/files/casServiceValidationSuccess.jsp /srv/tomcat/cas/webapps/cas/WEB-INF/view/jsp/protocol/2.0/;
                       sudo /sbin/service tomcat-cas restart"
   end
