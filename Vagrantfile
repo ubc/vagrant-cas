@@ -10,7 +10,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "puppetlabs/centos-6.5-64-puppet"
+  config.vm.box = "puppetlabs/centos-6.6-64-puppet"
+  config.vm.box_version = "1.0.1"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -20,7 +21,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network "forwarded_port", guest: 8080, host: 8088
+  #config.vm.network "forwarded_port", guest: 8080, host: 8088
+  config.vm.network :private_network, ip: "192.168.33.10"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -78,11 +80,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the file default.pp in the manifests_path directory.
   #
   config.vm.provision :shell do |shell|
-      shell.inline = "sudo puppet module install camptocamp-tomcat;
+      shell.inline = "sudo yum install -y redhat-lsb-core java-1.7.0-openjdk;
+                      sudo puppet module install camptocamp-tomcat --version 0.17.1;
                       sudo puppet module install puppetlabs-stdlib;
-                      sudo puppet module install puppetlabs-firewall;
+                      sudo puppet module install puppetlabs-firewall --version 1.10.0;
+                      sudo puppet module install jfryman-nginx;
                       sudo puppet module install maestrodev-maven;
-					  sudo puppet module install puppetlabs-java"
+                      sudo puppet module install puppetlabs-java"
   end
 
   config.vm.provision "puppet" do |puppet|
@@ -93,6 +97,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell do |shell|
       shell.inline = "cd /vagrant && mvn clean package;
                       sudo cp target/cas.war /srv/tomcat/cas/webapps/;
+                      while [ ! -d /srv/tomcat/cas/webapps/cas/WEB-INF/ ]; do sleep 1; done
+                      sudo cp -f /vagrant/files/cas.properties /srv/tomcat/cas/webapps/cas/WEB-INF/;
+                      sudo cp -f /vagrant/files/deployerConfigContext.xml /srv/tomcat/cas/webapps/cas/WEB-INF/;
+                      sudo cp -f /vagrant/files/person-attributes.conf /srv/tomcat/cas/webapps/cas/WEB-INF/;
+                      while [ ! -d /srv/tomcat/cas/webapps/cas/WEB-INF/view/jsp/protocol/2.0/ ]; do sleep 1; done
+                      sudo cp -f /vagrant/files/casServiceValidationSuccess.jsp /srv/tomcat/cas/webapps/cas/WEB-INF/view/jsp/protocol/2.0/;
                       sudo /sbin/service tomcat-cas restart"
   end
 
